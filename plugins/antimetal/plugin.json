@@ -1,0 +1,28 @@
+{
+  "name": "antimetal",
+  "displayName": "Antimetal",
+  "version": "1.0.0",
+  "description": "Bring Antimetal's cloud investigation intelligence into your editor. Investigate incidents, analyze root causes, and apply remediations without leaving Cursor.",
+  "author": {
+    "name": "Antimetal",
+    "email": "plugins@antimetal.com"
+  },
+  "homepage": "https://antimetal.com",
+  "repository": "https://github.com/antimetal/antimetal-cursor",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "cloud",
+    "incidents",
+    "observability",
+    "infrastructure",
+    "devops",
+    "investigation",
+    "remediation",
+    "mcp"
+  ],
+  "category": "developer-tools",
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "rules": "./rules/"
+}

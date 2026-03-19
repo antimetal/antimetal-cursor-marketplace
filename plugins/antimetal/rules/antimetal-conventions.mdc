@@ -1,0 +1,13 @@
+---
+description: Conventions for working with Antimetal investigation data and MCP tools
+alwaysApply: true
+---
+
+antimetal-conventions:
+
+- When referencing Antimetal issues, prefer the issue number (e.g., #42) over the UUID for readability.
+- Artifact IDs follow the format `type:provider:id` (e.g., `log:datadog:a9c131...`, `trace:gcp:abc123`). These come from `documentId` fields in causal tree evidence nodes.
+- Issue statuses are: `investigating`, `ready_to_fix`, `resolved`, `muted`.
+- Issue severities are: `high`, `medium`, `low`.
+- When applying remediations, always verify code changes against the local codebase before committing.
+- The `ask` tool supports multi-turn conversations via `conversation_id` -- always pass it for follow-ups.

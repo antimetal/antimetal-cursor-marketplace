@@ -1,0 +1,19 @@
+{
+  "name": "antimetal-marketplace",
+  "owner": {
+    "name": "Antimetal",
+    "email": "plugins@antimetal.com"
+  },
+  "metadata": {
+    "description": "Antimetal's Cursor plugin marketplace — cloud investigation intelligence for your editor.",
+    "version": "1.0.0",
+    "pluginRoot": "plugins"
+  },
+  "plugins": [
+    {
+      "name": "antimetal",
+      "source": "antimetal",
+      "description": "Cloud investigation intelligence — investigate incidents, analyze root causes, and apply remediations with Antimetal's MCP server"
+    }
+  ]
+}
