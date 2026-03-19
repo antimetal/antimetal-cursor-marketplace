@@ -1,7 +1,7 @@
 {
   "name": "antimetal",
   "displayName": "Antimetal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bring Antimetal's cloud investigation intelligence into your editor. Investigate incidents, analyze root causes, and apply remediations without leaving Cursor.",
   "author": {
     "name": "Antimetal",
