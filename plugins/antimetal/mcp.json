@@ -3,7 +3,7 @@
     "antimetal": {
       "url": "https://mcp.dev.antimetal.com",
       "headers": {
-        "Authorization": "Bearer ${ANTIMETAL_API_KEY}"
+        "Authorization": "Bearer ${ANTIMETAL_DEV_API_KEY}"
       }
     }
   }
