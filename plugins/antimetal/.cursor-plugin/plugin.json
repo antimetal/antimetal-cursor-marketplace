@@ -22,6 +22,5 @@
   ],
   "category": "developer-tools",
   "skills": "./skills/",
-  "agents": "./agents/",
   "rules": "./rules/"
 }

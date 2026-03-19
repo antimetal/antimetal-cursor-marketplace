@@ -32,16 +32,12 @@ Connects to Antimetal's remote MCP server at `mcp.antimetal.com`, giving the Cur
 
 | Tool | Description |
 |------|-------------|
-| `list_issues` | Paginated list of issues with severity, status, and environment |
-| `get_issue` | Full issue details including seeds and version history |
-| `get_issue_root_cause` | Root cause analysis with evidence and artifact references |
-| `get_issue_causal_tree` | Causal graph showing how events led to the incident |
-| `get_issue_timeline` | Chronological sequence of investigation events |
-| `get_issue_remediation` | Actionable fix steps (code changes, CLI commands, context) |
-| `create_issue` | Create a new issue and trigger an investigation |
+| `search_issues` | Paginated list of issues with severity, status, and environment |
+| `get_issue_report` | Full issue details including root cause, causal graph, and timeline when investigation is complete |
+| `get_issue_fixes` | Actionable fix steps (code changes, CLI commands, context) |
+| `investigate_issue` | Create a new issue and trigger an investigation |
 | `update_issue_status` | Update status: investigating, ready_to_fix, resolved, muted |
-| `delete_issue` | Permanently delete an issue and all associated data |
-| `fetch_artifact` | Fetch investigation artifacts: logs, traces, metrics, events, files, topology |
+| `get_artifact` | Fetch investigation artifacts: logs, traces, metrics, events, files, topology |
 | `ask` | Ask Antimetal's AI about your infrastructure, costs, or issues |
 
 ### Skills
