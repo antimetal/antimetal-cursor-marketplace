@@ -5,6 +5,7 @@ alwaysApply: true
 
 antimetal-conventions:
 
+- **API key required**: All MCP tools need a valid `ANTIMETAL_API_KEY` environment variable. If a tool call fails with an auth error, prompt the user to set it: `export ANTIMETAL_API_KEY="your-key"` (get one at [antimetal.com](https://antimetal.com) under account settings). Suggest adding it to their shell profile so it persists.
 - When referencing Antimetal issues, prefer the issue number (e.g., #42) over the UUID for readability.
 - Artifact IDs follow the format `type:provider:id` (e.g., `log:datadog:a9c131...`, `trace:gcp:abc123`). These come from `documentId` fields in causal graph evidence nodes.
 - Issue statuses are: `investigating`, `ready_to_fix`, `resolved`, `muted`.
