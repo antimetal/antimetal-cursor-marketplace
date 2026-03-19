@@ -7,14 +7,14 @@ description: List and triage Antimetal issues by severity and status. Use when t
 
 ## Workflow
 
-1. Use `list_issues` to get the current issue list -- returns uuid, number, title, severity, status, environment, triggeredAt, and seedCount
+1. Use `search_issues` to get the current issue list -- returns uuid, number, title, severity, status, environment, triggeredAt, and seedCount
 2. Group and present issues by status: `investigating`, `ready_to_fix`, `resolved`, `muted`
 3. Highlight high severity issues that need immediate attention
-4. For any issue the user wants to dive into, use `get_issue` for full details
+4. For any issue the user wants to dive into, use `get_issue_report` for full details
 
 ## Pagination
 
-`list_issues` is cursor-based with a default limit of 10 (max 100). Use `startingAfter` and `endingBefore` cursors to page through results. The response includes an `after` cursor for the next page.
+`search_issues` is cursor-based with a default limit of 10 (max 100). Use `startingAfter` and `endingBefore` cursors to page through results. The response includes an `after` cursor for the next page.
 
 ## Guardrails
 

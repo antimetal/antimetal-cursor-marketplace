@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "antimetal": {
-      "url": "https://mcp.antimetal.com",
+      "url": "https://mcp.dev.antimetal.com",
       "headers": {
         "Authorization": "Bearer ${ANTIMETAL_API_KEY}"
       }

@@ -7,7 +7,7 @@ description: Apply an Antimetal remediation to the current codebase. Use when th
 
 ## Workflow
 
-1. Use `get_issue_remediation` with the issue ID to get remediation steps
+1. Use `get_issue_fixes` with the issue ID to get remediation steps
 2. Remediation steps come in three types:
    - **info**: Context and explanation -- read and present to the user
    - **code**: File changes as an array of `{ filename, language?, content }` -- apply these to the codebase
