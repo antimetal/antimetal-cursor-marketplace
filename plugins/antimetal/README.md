@@ -1,6 +1,6 @@
 # Antimetal Cursor Plugin
 
-Bring [Antimetal's](https://antimetal.com) cloud investigation intelligence into Cursor. Investigate incidents, analyze root causes, fetch observability artifacts, and apply remediations -- all without leaving your editor.
+Bring [Antimetal's](https://antimetal.com) software investigation intelligence into Cursor. Triage problems, investigate root causes, fetch observability artifacts, and apply remediations -- all without leaving your editor.
 
 ## Setup
 
@@ -33,18 +33,17 @@ Connects to Antimetal's remote MCP server at `mcp.antimetal.com`, giving the Cur
 | Tool | Description |
 |------|-------------|
 | `search_issues` | Paginated list of issues with severity, status, and environment |
-| `get_issue_report` | Full issue details including root cause, causal graph, and timeline when investigation is complete |
-| `get_issue_fixes` | Actionable fix steps (code changes, CLI commands, context) |
-| `investigate_issue` | Create a new issue and trigger an investigation |
-| `update_issue_status` | Update status: investigating, ready_to_fix, resolved, muted |
-| `get_artifact` | Fetch investigation artifacts: logs, traces, metrics, events, files, topology |
-| `ask` | Ask Antimetal's AI about your infrastructure, costs, or issues |
+| `get_issue_report` | Full investigative report -- root cause, timeline, causal graph |
+| `get_issue_fixes` | Remediation steps (code changes, CLI commands, context) |
+| `investigate_issue` | Create a new issue and start async automated investigation |
+| `get_artifact` | Retrieve raw evidence: logs, traces, metrics, events, files, topology |
+| `ask` | Ask Antimetal's AI about infrastructure, software, deployments, telemetry, logs, code |
 
 ### Skills
 
-- **investigate-issue** -- Full investigation workflow: root cause, causal tree, timeline, and artifacts
-- **apply-remediation** -- Apply Antimetal's suggested fixes to your codebase
-- **ask-antimetal** -- Ask questions about your cloud infrastructure
+- **triage** -- Entry point for any software problem. Searches issues and queries Antimetal's AI to figure out what's happening
+- **investigate** -- Deep root cause analysis using investigative reports, causal graphs, and raw artifacts
+- **fix** -- Apply Antimetal's remediation to your codebase, adapted for your local environment
 
 ### Agent
 
