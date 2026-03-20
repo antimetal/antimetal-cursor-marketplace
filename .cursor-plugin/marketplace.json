@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "antimetal",
-      "source": "antimetal",
+      "source": "./",
       "description": "Cloud investigation intelligence — investigate incidents, analyze root causes, and apply remediations with Antimetal's MCP server"
     }
   ]
