@@ -6,8 +6,7 @@
   },
   "metadata": {
     "description": "Antimetal's Cursor plugin marketplace — cloud investigation intelligence for your editor.",
-    "version": "1.0.0",
-    "pluginRoot": "plugins"
+    "version": "1.0.0"
   },
   "plugins": [
     {
