@@ -44,10 +44,6 @@ Connects to Antimetal's remote MCP server at `mcp.antimetal.com`, giving the Cur
 - **investigate** -- Entry point for any software problem. Searches issues, queries Antimetal's AI, reads investigative reports and causal graphs, and routes to fix
 - **fix** -- Apply Antimetal's remediation to your codebase, adapted for your local environment
 
-### Agent
-
-- **incident-responder** -- Dedicated agent for triaging and investigating production incidents
-
 ### Rules
 
 - **antimetal-conventions** -- Conventions for working with Antimetal data (artifact ID formats, status values, etc.)
