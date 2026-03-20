@@ -20,6 +20,8 @@ Then follow whichever path they pick.
 
 If you don't have an issue ID yet, use `search_issues` to see if one already exists. If an existing issue sounds like the same problem, use it. If there is not a close match, it is a new problem requiring a call to `investigate_issue`.
 
+**Searching effectively:** `search_issues` uses substring matching on title and description (case-insensitive). Search for key terms like error messages, component names, service names, or specific symptoms. Try variations if your first search doesn't yield results—e.g., "database timeout" vs "database" vs "timeout".
+
 A direct line to Antimetal's intelligent agent, which has access to all telemetry and integrations. It can run pinpointed telemetry queries, find context across your observability stack, and surface relevant data without the overhead of a full investigation. Use this when the user wants quick, targeted answers — whether it's a broad question about their systems or a specific problem they want context on before deciding whether to go deeper.
 
 Always pass `conversation_id` on follow-ups to maintain context.
