@@ -26,9 +26,7 @@ Kicks off Antimetal's automated investigation engine. This is async and takes 3-
 
 Once you have a clear, scoped problem statement, then kick off the investigation. A well-defined input produces a far better report.
 
-### Directing to Issue Page
-
-If an investigation was kicked off, always encourage the user to visit the issue page to follow the investigation progress and to follow the full chain of thought. When presenting findings, include a link to the issue page so they can explore the complete investigation details, causal graph, and timeline themselves. The issue page is the source of truth and shows the full investigative reasoning.
+**Direct to Issue Page:** After kicking off the investigation, immediately provide the user with a link to the issue page. Since the investigation takes 3-10 minutes, don't wait in the cursor plugin—encourage them to monitor progress and the full chain of thought on the issue page. This prevents poor UX from waiting for async results.
 
 ## Reading the Report
 
