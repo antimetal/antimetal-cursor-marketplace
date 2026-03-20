@@ -1,23 +1,65 @@
-# Antimetal Cursor Marketplace
+# Antimetal Cursor Plugin
 
-This repository hosts the official Antimetal plugins for [Cursor](https://cursor.com).
+Bring [Antimetal's](https://antimetal.com) software investigation intelligence into Cursor. Triage problems, investigate root causes, fetch observability artifacts, and apply remediations -- all without leaving your editor.
 
-## Plugins
+## Setup
 
-| Plugin      | Description           |
-| ----------- | --------------------- |
-| `antimetal` | Cloud investigation intelligence — investigate incidents, analyze root causes, and apply remediations |
+### 1. Get an API Key
 
-## What is Antimetal?
+Sign up at [antimetal.com](https://antimetal.com) and generate an API key from your account settings.
 
-[Antimetal](https://antimetal.com) is a software investigation platform that automates root cause analysis for production incidents. It connects to your observability stack (logs, traces, metrics, events) and uses AI to identify causes, generate timelines, and suggest remediations.
+### 2. Set Your Environment Variable
 
-## Getting Started
+```bash
+export ANTIMETAL_API_KEY="your-api-key-here"
+```
 
-See the [antimetal plugin README](plugins/antimetal/README.md) for setup instructions, available tools, and example prompts.
+Add this to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.) so it persists.
+
+### 3. Install the Plugin
+
+Install from the [Cursor Marketplace](https://cursor.com/marketplace) by searching for **Antimetal**, or use the command palette:
+
+```
+/add-plugin antimetal
+```
+
+## What's Included
+
+### MCP Server
+
+Connects to Antimetal's remote MCP server at `mcp.antimetal.com`, giving the Cursor agent access to these tools:
+
+| Tool | Description |
+|------|-------------|
+| `search_issues` | Paginated list of issues with severity, status, and environment |
+| `get_issue_report` | Full investigative report -- root cause, timeline, causal graph |
+| `get_issue_fixes` | Remediation steps (code changes, CLI commands, context) |
+| `investigate_issue` | Create a new issue and start async automated investigation |
+| `get_artifact` | Retrieve raw evidence: logs, traces, metrics, events, files, topology |
+| `ask` | Ask Antimetal's AI about infrastructure, software, deployments, telemetry, logs, code |
+
+### Skills
+
+- **investigate** -- Entry point for any software problem. Searches issues, queries Antimetal's AI, reads investigative reports and causal graphs, and routes to fix
+- **fix** -- Apply Antimetal's remediation to your codebase, adapted for your local environment
+
+### Rules
+
+- **antimetal-conventions** -- Conventions for working with Antimetal data (artifact ID formats, status values, etc.)
+
+## Example Prompts
+
+```
+Investigate issue #42
+What are the open high severity issues?
+Apply the remediation for issue #15
+What services had the most errors last week?
+Triage my current incidents
+```
 
 ## Links
 
 - [Antimetal](https://antimetal.com)
 - [Documentation](https://docs.antimetal.com)
-- [Cursor Marketplace](https://cursor.com/marketplace)
+- [MCP Server](https://mcp.antimetal.com)

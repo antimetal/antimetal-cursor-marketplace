@@ -1,15 +1,13 @@
 {
   "name": "antimetal",
   "displayName": "Antimetal",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "Bring Antimetal's software investigation intelligence into your editor. Triage problems, investigate root causes, and apply remediations without leaving Cursor.",
   "author": {
     "name": "Antimetal",
     "email": "plugins@antimetal.com"
   },
   "homepage": "https://antimetal.com",
-  "repository": "https://github.com/antimetal/antimetal-cursor",
-  "license": "MIT",
   "logo": "assets/logo.svg",
   "keywords": [
     "debugging",
@@ -21,8 +19,5 @@
     "remediation",
     "mcp",
     "devops"
-  ],
-  "category": "developer-tools",
-  "skills": "./skills/",
-  "rules": "./rules/"
+  ]
 }
