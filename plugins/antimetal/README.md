@@ -41,8 +41,7 @@ Connects to Antimetal's remote MCP server at `mcp.antimetal.com`, giving the Cur
 
 ### Skills
 
-- **triage** -- Entry point for any software problem. Searches issues and queries Antimetal's AI to figure out what's happening
-- **investigate** -- Deep root cause analysis using investigative reports, causal graphs, and raw artifacts
+- **investigate** -- Entry point for any software problem. Searches issues, queries Antimetal's AI, reads investigative reports and causal graphs, and routes to fix
 - **fix** -- Apply Antimetal's remediation to your codebase, adapted for your local environment
 
 ### Agent

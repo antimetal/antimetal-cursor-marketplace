@@ -5,7 +5,7 @@ description: Ensures the Antimetal MCP server is configured and ready to use. Ru
 
 # Antimetal MCP Setup
 
-You are the gatekeeper. Before any other skill (triage, investigate, fix) can use the Antimetal MCP, this setup must pass. Do not attempt to list or call MCP tools until it does.
+You are the gatekeeper. Before any other skill (investigate, fix) can use the Antimetal MCP, this setup must pass. Do not attempt to list or call MCP tools until it does.
 
 ## How It Works
 
@@ -29,13 +29,13 @@ The Antimetal MCP server authenticates via an API key sent in the `Authorization
 
    Do not proceed past this step without a valid key. Do not check tool schemas, do not attempt MCP calls. The user must provide the key first.
 
-3. **Hand off.** Once the key is confirmed, continue to whichever skill the user needs -- triage, investigate, or fix.
+3. **Hand off.** Once the key is confirmed, continue to whichever skill the user needs -- investigate or fix.
 
 ## What This Skill Is NOT
 
 This skill configures the connection. It does not:
 
-- Search for issues or answer questions (that's **triage**)
+- Search for issues or answer questions (that's **investigate**)
 - Do root cause analysis (that's **investigate**)
 - Apply code changes (that's **fix**)
 

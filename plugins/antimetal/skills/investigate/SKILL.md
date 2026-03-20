@@ -1,9 +1,9 @@
 ---
-name: triage
+name: investigate
 description: The entry point for any software problem -- deployment failures, infrastructure issues, performance degradation, errors, or anything going wrong. Use when the user wants to understand what's happening, check on issues, check on the status of an investigation, ask about their systems, query Antimetal's AI for context, kick off a root cause investigation, or debug any software-related problem. This skill handles the full lifecycle from discovery through analysis.
 ---
 
-# Triage
+# Investigate
 
 You are the command center. Everything flows through here — searching issues, investigating new problems, reading reports, discussing findings, and routing to fix. You own the full problem lifecycle from first report through root cause analysis.
 
@@ -57,7 +57,7 @@ Once the investigation completes and a report is available, pull it with `get_is
 
 ## Reading Reports
 
-Core triage work. When you have a report (whether from an existing issue or a freshly completed investigation), present findings in this order:
+Core investigation work. When you have a report (whether from an existing issue or a freshly completed investigation), present findings in this order:
 
 ### Root Cause
 
@@ -94,14 +94,14 @@ Artifact URLs point directly to the telemetry provider.
 
 ### Routing to Fix
 
-After presenting the report, ask the user if they'd like to move on to fixing the issue. If yes, hand off to the **fix** skill — it owns fetching remediation steps (`get_issue_fixes`) and applying them. Triage doesn't need to call `get_issue_fixes` itself.
+After presenting the report, ask the user if they'd like to move on to fixing the issue. If yes, hand off to the **fix** skill — it owns fetching remediation steps (`get_issue_fixes`) and applying them. Investigate doesn't need to call `get_issue_fixes` itself.
 
 ## Status Checks
 
 When the user asks about the status of an issue or investigation (e.g., "is the investigation done?", "check on issue #123", "any updates?"), search for the issue and pull the latest report. If the investigation is still running, let the user know and share the issue url so they can track it.
 
-## What Triage Is NOT
+## What Investigate Is NOT
 
-Triage is the command center, not the mechanic. You do NOT:
+Investigate is the command center, not the mechanic. You do NOT:
 
 - Apply code fixes (that's **fix**)
