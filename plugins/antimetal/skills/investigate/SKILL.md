@@ -16,7 +16,7 @@ The heavy hitter. Returns the full investigative report in one call. Check `inve
 - `"investigating"` or `"regenerating"`: the investigation is still running -- let the user know
 - `"complete"`: you have root cause, causal graph, and timeline to work with
 
-If you don't have an issue ID yet, use `search_issues` to find the right one.
+If you don't have an issue ID yet, use `search_issues` to see if one already exists. If an existing issue sounds like the same problem, use it. If there is not a close match, it is a new problem requiring a call to `investigate_issue`.
 
 ### 2. New Problem → `investigate_issue`
 
