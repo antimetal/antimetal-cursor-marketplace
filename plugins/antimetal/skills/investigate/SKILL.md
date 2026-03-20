@@ -1,24 +1,30 @@
 ---
 name: investigate
-description: Deep root cause analysis for software incidents. Use when triage has identified an issue that needs full investigation, when the user wants to understand why something broke, or when a problem needs Antimetal's automated investigation engine.
+description: Dig deeper into software problems or ask questions about your systems. Use when the user wants to query Antimetal's AI for context, ask about their infrastructure, check telemetry, or kick off a full automated root cause investigation. This is the skill for any question about the user's systems or any problem that needs deeper analysis.
 ---
 
 # Investigate
 
-You are the specialist called in after triage. Your job is to figure out _why_ something broke and build a clear picture of the incident for the user.
+When triage can't find an existing issue, you take over to figure out the right level of analysis. You own two tools and the decision between them.
 
-## Two Paths In
+## Choosing the Right Approach
 
-### 1. Existing Issue → `get_issue_report`
+Present the fork clearly:
 
-The heavy hitter. Returns the full investigative report in one call. Check `investigationStatus` first:
+> "This seems like a new issue. Would you like to:
+>
+> 1. **Quick Q&A** — I can query Antimetal's AI to pull context on this right now
+> 2. **Full investigation** — kick off an automated deep-dive that analyzes root cause, timeline, and causal chain (takes 3-10 min)"
 
-- `"investigating"` or `"regenerating"`: the investigation is still running -- let the user know
-- `"complete"`: you have root cause, causal graph, and timeline to work with
+Then follow whichever path they pick.
 
 If you don't have an issue ID yet, use `search_issues` to see if one already exists. If an existing issue sounds like the same problem, use it. If there is not a close match, it is a new problem requiring a call to `investigate_issue`.
 
-### 2. New Problem → `investigate_issue`
+A direct line to Antimetal's intelligent agent, which has access to all telemetry and integrations. It can run pinpointed telemetry queries, find context across your observability stack, and surface relevant data without the overhead of a full investigation. Use this when the user wants quick, targeted answers — whether it's a broad question about their systems or a specific problem they want context on before deciding whether to go deeper.
+
+Always pass `conversation_id` on follow-ups to maintain context.
+
+## Full Investigation (`investigate_issue`)
 
 Kicks off Antimetal's automated investigation engine. This is async and takes 3-10 minutes. Returns an issue ID to track.
 
@@ -28,51 +34,13 @@ Once you have a clear, scoped problem statement, then kick off the investigation
 
 **Direct to Issue Page:** After kicking off the investigation, immediately provide the user with a link to the issue page. Since the investigation takes 3-10 minutes, don't wait in the cursor plugin—encourage them to monitor progress and the full chain of thought on the issue page. This prevents poor UX from waiting for async results.
 
-## Reading the Report
-
-This is where the analytical work happens. Present findings in this order:
-
-### Root Cause
-
-The headline finding. Lead with this -- it's what the user cares about most. State it plainly: what broke and why.
-
-### Causal Graph
-
-The graph tells the story of how the failure propagated. Follow from outcome → causes:
-
-- **outcome**: what broke (the symptom the user sees)
-- **cause**: why it broke (the actual root cause)
-- **confounder**: correlated but not causal -- flag these so the user doesn't chase false leads
-- **mediator**: how the cause propagated to the outcome
-
-Weigh confidence levels: `confirmed` > `likely` > `probable` > `unclear` > `unknown`. When confidence is low, say so -- don't present uncertain findings as fact.
-
-### Timeline
-
-The chronological story. Look for:
-
-- Events close together = cascade (one thing triggered the next)
-- Gaps between events = independent failures (multiple things broke separately)
-
-### Raw Evidence (`get_artifact`)
-
-Use when:
-
-- Confidence is low and you need to verify a finding
-- The user asks for proof or wants to see the raw data
-- You want to show specific logs, traces, metrics, or topology
-
-Artifact IDs come from `documentId` fields on causal graph evidence nodes. Format: `type:provider:id`.
-
-## Handoff to Fix
-
-When root cause is clear and remediation exists, present the fix path proactively. Don't wait for the user to ask -- say something like "Root cause is X. Antimetal has remediation steps available -- want me to apply them?"
+Once the investigation is kicked off, hand back to **triage** — which will be in charge of reading and discussing the report.
 
 ## What Investigate Is NOT
 
-Investigate figures out _why_. It does not:
+Investigate is not the place to read the report or discuss the findings. That's the responsibility of **triage**.
 
-- Search for issues or answer general questions (that's **triage**)
+Investigate decides how to dig deeper and kicks things off. It does not:
+
+- Search for existing issues or read reports (that's **triage**)
 - Apply code changes or run CLI commands (that's **fix**)
-
-If the user shifts to "okay, fix it" -- hand off to the **fix** skill.

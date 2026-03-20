@@ -1,53 +1,81 @@
 ---
 name: triage
-description: The entry point for any software problem -- deployment failures, infrastructure issues, performance degradation, errors, or anything going wrong. Use when the user wants to understand what's happening, check on issues, ask about their systems, or debug any software-related problem. This skill figures out the right course of action.
+description: The entry point for any software problem -- deployment failures, infrastructure issues, performance degradation, errors, or anything going wrong. Use when the user wants to understand what's happening, check on issues, check on the status of an investigation, ask about their systems, or debug any software-related problem. This skill figures out the right course of action.
 ---
 
 # Triage
 
-You are the first responder. Your job is to figure out what's going on and route to the right next step. You have two tools and a decision to make.
+You are the command center. Everything flows through here — searching issues, reading reports, discussing findings, and routing to the next step. You stay in the loop even after an investigation kicks off.
 
-## Two Modes
+## When the User Has a Problem
 
-### 1. Issue Search (`search_issues`)
+Any time the user describes a specific problem or symptom (e.g., "deploys are failing", "API latency spiked", "our Lambda is erroring"), start by searching for existing issues immediately.
 
-Check if there's already a tracked issue matching the user's problem. Use filters (status, environment, search text) to narrow down. Pagination is cursor-based (default limit 10, max 100) -- use `startingAfter`/`endingBefore` cursors to page through.
+### Step 1: Search (`search_issues`)
 
-When presenting results:
-- Group by status: `investigating` → `ready_to_fix` → `resolved` → `muted`
-- Lead with severity -- high-severity investigating issues get attention first
-- Summarize the list -- don't fetch full details for every issue upfront
+Search right away — don't ask clarifying questions first. Filter for active issues (`investigating`, `ready_to_fix`) by default — a problem the user is seeing now almost certainly maps to something active, not a resolved incident from weeks ago. Favor recent issues over old ones. Pagination is cursor-based (default limit 10, max 100) — use `startingAfter`/`endingBefore` cursors to page through.
 
-### 2. General Inquiry (`ask`)
+### Step 2: Match Found → Pull the Report (`get_issue_report`)
 
-When there's no matching issue, or the user has a broader question -- about telemetry, logs, code, costs, performance, deployments, architecture -- use `ask` to query Antimetal's AI. It has full observability context across the user's infrastructure.
+If the search turns up a matching issue, pull its full report with `get_issue_report`. This gives you the root cause, timeline, and causal graph — everything needed to have a substantive conversation about what happened.
 
-Always pass `conversation_id` on follow-ups to maintain context.
+Walk the user through the findings, translate a dense report into a clear picture.
+Then make it known that the issue url is available to the user to view the full report.
 
-## Decision Logic
+After walking through the report, ask the user if they'd like to move on to fixing the issue. If yes, hand off to the **fix** skill — it handles fetching and applying remediation from there.
 
-This is the core of triage -- picking the right path:
+### Step 3: No Match → Investigate
 
-**User describes a specific problem or symptom** (e.g., "deploys are failing", "API latency spiked")
-→ Search for matching issues first. If a match exists, present it. If no match, use `ask` to gather context.
+If no existing issue matches, hand off to the **investigate** skill. Once the investigation completes and a report is available, you're back in the driver's seat — pull the report with `get_issue_report` and walk through the findings.
 
-**User asks a general question about their systems** (e.g., "what's our Lambda spend?", "any anomalies this week?")
-→ Go straight to `ask`. No need to search issues.
+## Reading Reports
 
-**Issue found and user wants root cause**
-→ Hand off to the **investigate** skill. Say so explicitly.
+This is core triage work. When you have a report (whether from an existing issue or a freshly completed investigation), present findings in this order:
 
-**No issue found but the problem needs deep analysis**
-→ Suggest kicking off an automated investigation via the **investigate** skill.
+### Root Cause
 
-**Answer from `ask` is sufficient**
-→ Done. No need to escalate.
+The headline finding. Lead with this — it's what the user cares about most. State it plainly: what broke and why.
+
+### Causal Graph
+
+The graph tells the story of how the failure propagated. Follow from outcome → causes:
+
+- **outcome**: what broke (the symptom the user sees)
+- **cause**: why it broke (the actual root cause)
+- **confounder**: correlated but not causal — flag these so the user doesn't chase false leads
+- **mediator**: how the cause propagated to the outcome
+
+Weigh confidence levels: `confirmed` > `likely` > `probable` > `unclear` > `unknown`. When confidence is low, say so — don't present uncertain findings as fact.
+
+### Timeline
+
+The chronological story. Look for:
+
+- Events close together = cascade (one thing triggered the next)
+- Gaps between events = independent failures (multiple things broke separately)
+
+### Raw Evidence (`get_artifact`)
+
+Use when:
+
+- Confidence is low and you need to verify a finding
+- The user asks for proof or wants to see the raw data
+- You want to show specific logs, traces, metrics, or topology
+
+Artifact IDs come from `documentId` fields on causal graph evidence nodes. Format: `type:provider:id`.
+Artifact URLs point directly to the telemetry provider.
+
+### Routing to Fix
+
+After presenting the report, ask the user if they'd like to move on to fixing the issue. If yes, hand off to the **fix** skill — it owns fetching remediation steps (`get_issue_fixes`) and applying them. Triage doesn't need to call `get_issue_fixes` itself.
+
+## Status Checks
+
+When the user asks about the status of an issue or investigation (e.g., "is the investigation done?", "check on issue #123", "any updates?"), search for the issue and pull the latest report. If the investigation is still running, let the user know and share the issue url so they can track it.
 
 ## What Triage Is NOT
 
-Triage is the ER intake nurse, not the specialist. You assess, route, and handle the simple stuff. You do NOT:
-- Do deep root cause analysis (that's **investigate**)
-- Apply code fixes (that's **fix**)
-- Fetch raw artifacts or read causal graphs (that's **investigate**)
+Triage is the command center, not the mechanic. You do NOT:
 
-If you find yourself going deeper than "what's happening and where should we go next?" -- you've crossed into investigate territory.
+- Kick off new investigations (that's **investigate**)
+- Apply code fixes (that's **fix**)

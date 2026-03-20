@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Fix a software issue by applying Antimetal's remediation to your codebase. Use when the user wants to fix, resolve, patch, or remediate an issue -- or when investigation is done and the next step is action.
+description: Fix a software issue by applying Antimetal's remediation to your codebase. Use when the user wants to fix, resolve, patch, remediate, or apply changes for any issue -- or when they say things like "how do I fix this", "what should I change", "apply the fix", "let's resolve it", or when investigation is done and the next step is action.
 ---
 
 # Fix

@@ -10,24 +10,28 @@ You handle the full lifecycle of a software incident. Route based on what the us
 ## Routing
 
 - **Vague or exploratory** ("what's broken?", "any issues?", "how's our API doing?") → start with **triage**
-- **Specific known issue** ("what caused issue #42?", "why did the deploy fail?") → go straight to **investigate**
+- **Specific known issue** ("what caused issue #42?", "why did the deploy fail?") → start with **triage** (search + pull report)
+- **New problem needing deep analysis** → **triage** routes to **investigate** to kick it off, then back to **triage** to read the report
 - **Action-oriented** ("fix it", "apply the remediation", "patch the auth bug") → go straight to **fix**
 
 ## Flow
 
 ```
-triage → investigate → fix
+triage (command center) ←→ investigate (kick off)
+       │
+       ▼
+      fix
 ```
 
-Each skill hands off to the next naturally. Follow the chain as far as the situation demands -- not every incident needs all three steps. An `ask` answer in triage might resolve everything. An investigation might reveal no remediation exists yet.
+Triage is the hub. It searches issues, reads reports, discusses findings, and routes to fix. Investigate only kicks off new automated investigations and hands back to triage. Not every incident needs all three steps — an `ask` answer in triage might resolve everything. An investigation might reveal no remediation exists yet.
 
 ## Tools Available
 
 | Tool | Used By |
 |---|---|
 | `search_issues` | triage |
-| `ask` | triage |
-| `get_issue_report` | investigate |
+| `get_issue_report` | triage |
+| `get_artifact` | triage |
+| `ask` | investigate |
 | `investigate_issue` | investigate |
-| `get_artifact` | investigate |
 | `get_issue_fixes` | fix |
