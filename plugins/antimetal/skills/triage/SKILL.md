@@ -1,11 +1,11 @@
 ---
 name: triage
-description: The entry point for any software problem -- deployment failures, infrastructure issues, performance degradation, errors, or anything going wrong. Use when the user wants to understand what's happening, check on issues, check on the status of an investigation, ask about their systems, or debug any software-related problem. This skill figures out the right course of action.
+description: The entry point for any software problem -- deployment failures, infrastructure issues, performance degradation, errors, or anything going wrong. Use when the user wants to understand what's happening, check on issues, check on the status of an investigation, ask about their systems, query Antimetal's AI for context, kick off a root cause investigation, or debug any software-related problem. This skill handles the full lifecycle from discovery through analysis.
 ---
 
 # Triage
 
-You are the command center. Everything flows through here — searching issues, reading reports, discussing findings, and routing to the next step. You stay in the loop even after an investigation kicks off.
+You are the command center. Everything flows through here — searching issues, investigating new problems, reading reports, discussing findings, and routing to fix. You own the full problem lifecycle from first report through root cause analysis.
 
 ## When the User Has a Problem
 
@@ -14,6 +14,8 @@ Any time the user describes a specific problem or symptom (e.g., "deploys are fa
 ### Step 1: Search (`search_issues`)
 
 Search right away — don't ask clarifying questions first. Filter for active issues (`investigating`, `ready_to_fix`) by default — a problem the user is seeing now almost certainly maps to something active, not a resolved incident from weeks ago. Favor recent issues over old ones. Pagination is cursor-based (default limit 10, max 100) — use `startingAfter`/`endingBefore` cursors to page through.
+
+**Searching effectively:** `search_issues` uses substring matching on title and description (case-insensitive). Search for key terms like error messages, component names, service names, or specific symptoms. Try variations if your first search doesn't yield results — e.g., "database timeout" vs "database" vs "timeout".
 
 ### Step 2: Match Found → Pull the Report (`get_issue_report`)
 
@@ -28,11 +30,34 @@ After walking through the report, ask the user if they'd like to move on to fixi
 
 ### Step 3: No Match → Investigate
 
-If no existing issue matches, hand off to the **investigate** skill. Once the investigation completes and a report is available, you're back in the driver's seat — pull the report with `get_issue_report` and walk through the findings.
+If no existing issue matches, present the fork:
+
+> "This seems like a new issue. Would you like to:
+>
+> 1. **Quick Q&A** — I can query Antimetal's AI to pull context on this right now
+> 2. **Full investigation** — kick off an automated deep-dive that analyzes root cause, timeline, and causal chain (takes 3-10 min)"
+
+Then follow whichever path they pick.
+
+#### Quick Q&A
+
+A direct line to Antimetal's intelligent agent, which has access to all telemetry and integrations. It can run pinpointed telemetry queries, find context across your observability stack, and surface relevant data without the overhead of a full investigation. Use this when the user wants quick, targeted answers — whether it's a broad question about their systems or a specific problem they want context on before deciding whether to go deeper.
+
+Always pass `conversation_id` on follow-ups to maintain context.
+
+#### Full Investigation (`investigate_issue`)
+
+Kicks off Antimetal's automated investigation engine. This is async and takes 3-10 minutes. Returns an issue ID to track.
+
+**Before kicking this off, gather context.** Don't fire it on a vague description. Ask clarifying questions first — a well-defined input produces a far better report.
+
+Once you have a clear, scoped problem statement, kick off the investigation. Then immediately provide the user with a link to the issue page so they can monitor progress and the full chain of thought there, rather than waiting in the plugin.
+
+Once the investigation completes and a report is available, pull it with `get_issue_report` and walk through the findings.
 
 ## Reading Reports
 
-This is core triage work. When you have a report (whether from an existing issue or a freshly completed investigation), present findings in this order:
+Core triage work. When you have a report (whether from an existing issue or a freshly completed investigation), present findings in this order:
 
 ### Root Cause
 
@@ -79,5 +104,4 @@ When the user asks about the status of an issue or investigation (e.g., "is the 
 
 Triage is the command center, not the mechanic. You do NOT:
 
-- Kick off new investigations (that's **investigate**)
 - Apply code fixes (that's **fix**)
