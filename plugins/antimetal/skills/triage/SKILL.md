@@ -19,6 +19,8 @@ Search right away — don't ask clarifying questions first. Filter for active is
 
 If the search turns up a matching issue, pull its full report with `get_issue_report`. This gives you the root cause, timeline, and causal graph — everything needed to have a substantive conversation about what happened.
 
+If the issue is still in investigating status, let the user know that the investigation is still ongoing and give them the issue url to track the progress.
+
 Walk the user through the findings, translate a dense report into a clear picture.
 Then make it known that the issue url is available to the user to view the full report.
 
